@@ -3,6 +3,7 @@ const showPosts = (body, reactions, image, userName) => {
   const userAvatar = document.createElement("img");
   const nameOfUser = document.createElement("h2");
   const postText = document.createElement("p");
+  const textInput = document.querySelector('#text')
   const likeSpan = document.createElement("span");
   const likeButton = document.createElement("button");
 
@@ -22,7 +23,7 @@ const showPosts = (body, reactions, image, userName) => {
     likeSpan.innerText = currentLikes += 1;
   });
 
-  postContainer.append(userAvatar, nameOfUser, postText, likeSpan);
+  postContainer.append(userAvatar, nameOfUser, postText, textInput, likeSpan);
 };
 
 const fetchUser = async (userId) => {
@@ -40,7 +41,7 @@ const fetchUser = async (userId) => {
 
 const fetchPosts = async () => {
   try {
-    const response = await fetch("https://dummyjson.com/docs/posts");
+    const response = await fetch('https://dummyjson.com/docs/posts');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -68,13 +69,14 @@ postForm.addEventListener("submit", async function (e) {
 
   const userAvatar = document.querySelector("#user-avatar");
   userAvatar.src = user.image;
-  const newPost = {
-    body: textInput.value,
-    userId: user.id,
-  };
+  
+  // const newPost = {
+  //   body: textInput.value,
+  //   userId: user.id,
+  // };
 
-  addPost(newPost, (postData, userData) => showPosts(postData, userData));
-  textInput.value = "";
+  // addPost(newPost, (postData, userData) => showPosts(postData, userData));
+  // textInput.value = "";
 });
 
 const addPost = (postData) => {
