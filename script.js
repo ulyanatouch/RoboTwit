@@ -3,9 +3,10 @@ const showPosts = (body, reactions, image, userName) => {
   const userAvatar = document.createElement("img");
   const nameOfUser = document.createElement("h2");
   const postText = document.createElement("p");
-  const textInput = document.querySelector('#text')
   const likeSpan = document.createElement("span");
   const likeButton = document.createElement("button");
+  
+
 
   postContainer.className = "root";
   userAvatar.className = "user-avatar";
@@ -15,15 +16,17 @@ const showPosts = (body, reactions, image, userName) => {
   postText.className = "post-text";
   postText.innerText = body;
   likeSpan.className = "like-span";
-  likeSpan.textContent = reactions;
-
-  likeButton.textContent = "❤";
+  likeSpan.innerText = reactions;
+  likeButton.innerText = "❤";
+  
   likeButton.addEventListener("click", function () {
     let currentLikes = parseInt(likeSpan.textContent) || 0;
     likeSpan.innerText = currentLikes += 1;
   });
 
-  postContainer.append(userAvatar, nameOfUser, postText, textInput, likeSpan);
+  likeSpan.append(likeButton)
+  postContainer.append(userAvatar, nameOfUser, postText, likeSpan);
+  
 };
 
 const fetchUser = async (userId) => {
@@ -41,7 +44,7 @@ const fetchUser = async (userId) => {
 
 const fetchPosts = async () => {
   try {
-    const response = await fetch('https://dummyjson.com/docs/posts');
+    const response = await fetch('https://dummyjson.com/posts');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -61,26 +64,8 @@ fetchPosts().then(async (posts) => {
   }
 });
 
-const postForm = document.querySelector("#postForm");
-postForm.addEventListener("submit", async function (e) {
-  e.preventDefault();
-
-  const user = await fetchUser(27);
-
-  const userAvatar = document.querySelector("#user-avatar");
-  userAvatar.src = user.image;
-  
-  // const newPost = {
-  //   body: textInput.value,
-  //   userId: user.id,
-  // };
-
-  // addPost(newPost, (postData, userData) => showPosts(postData, userData));
-  // textInput.value = "";
-});
-
 const addPost = (postData) => {
-  fetch("https://dummyjson.com/posts/add", {
+  fetch('https://dummyjson.com/posts/add', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(postData),
@@ -91,3 +76,24 @@ const addPost = (postData) => {
     })
     .catch((error) => console.error("Error", error));
 };
+
+const postForm = document.querySelector("#postForm");
+const textInput = document.querySelector('#post')
+const userAvatar = document.querySelector("#user-avatar");
+
+
+postForm.addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const user = await fetchUser(27);
+  userAvatar.src = user.image;
+  
+  const newPost = {
+    body: textInput.value,
+    userId: user.id,
+  };
+
+  addPost(newPost, (postData, userData) => showPosts(postData, userData));
+  
+});
+
