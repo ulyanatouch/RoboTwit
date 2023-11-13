@@ -6,8 +6,6 @@ const showPosts = (body, reactions, image, userName) => {
   const likeSpan = document.createElement("span");
   const likeButton = document.createElement("button");
   
-
-
   postContainer.className = "root";
   userAvatar.className = "user-avatar";
   userAvatar.src = image;
