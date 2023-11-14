@@ -64,7 +64,7 @@ header h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 120px;
 }
 
 .meta img {
@@ -105,7 +105,38 @@ header h2 {
   color: purple; /* необычный цвет текста */
   background-color: yellow; /* яркий фон */
   border-radius: 50%; /* круглая форма */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* тень для эффекта подъема */
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3); /* тень для эффекта подъема */
   transition: all 0.3s ease; /* плавный переход */
+}
+
+.userAvatar {
+  width: 100px;
+  height: 100px;
+}
+
+.root{
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-avatar{
+  width: 80px;
+  height: 80px;
+}
+
+.user-name{
+ padding-top: 10px;
+  font-size: 15px;
+  color: greenyellow;
+}
+
+.post-text{
+  padding: 10px 0 0 10px;
+  font-size: 20px;
+}
+
+.like-span{
+  display: flex;
+  flex-direction: column-reverse;
 }
 
