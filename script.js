@@ -2,6 +2,7 @@ const wrapper = document.querySelector("#wrapper");
 const postForm = document.querySelector("#postForm");
 const textInput = document.querySelector("#post");
 const userAvatar = document.querySelector("#user-avatar");
+const postContainer = document.createElement("div");
 
 const showPosts = (body, reactions, image, userName) => {
   const postContainer = document.createElement("div");
@@ -20,6 +21,7 @@ const showPosts = (body, reactions, image, userName) => {
   postText.innerText = body;
   likeSpan.className = "like-span";
   likeSpan.innerText = reactions;
+  likeButton.className = "like-button";
   likeButton.innerText = "❤";
 
   likeButton.addEventListener("click", function () {
@@ -29,7 +31,8 @@ const showPosts = (body, reactions, image, userName) => {
 
   likeSpan.append(likeButton);
   postContainer.append(userAvatar, nameOfUser, postText, likeSpan);
-  wrapper.append(postContainer);
+  // wrapper.append(postContainer)
+  wrapper.insertBefore(postContainer, wrapper.firstChild);
 };
 
 const fetchUser = async (userId) => {
@@ -60,6 +63,7 @@ const fetchPosts = async () => {
     }
     const data = await response.json();
     return data.posts;
+    // console.log();
   } catch (error) {
     console.error("Ошибка при получении постов:", error);
   }
@@ -69,7 +73,7 @@ fetchPosts().then(async (posts) => {
   if (posts) {
     for (const post of posts) {
       const user = await fetchUser(post.userId);
-      showPosts(post.body, post.reactions, user.image, user.username); 
+      showPosts(post.body, post.reactions, user.image, user.username);
     }
   }
 });
@@ -84,7 +88,7 @@ const addPost = (postData, callback) => {
     .then((data) => {
       console.log(data);
       if (callback && typeof callback === "function") {
-        callback(postData);
+        callback(data);
       }
     })
     .catch((error) => console.error("Error", error));
@@ -94,7 +98,6 @@ postForm.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const user = await fetchUser(13);
-  userAvatar.src = user.image;
 
   const newPost = {
     body: textInput.value,
@@ -102,9 +105,9 @@ postForm.addEventListener("submit", async function (e) {
     reactions: 0,
   };
 
+  textInput.value = "";
+
   addPost(newPost, (postData) => {
     showPosts(postData.body, postData.reactions, user.image, user.username);
   });
-
-  textInput.value = "";
 });

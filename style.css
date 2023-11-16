@@ -24,7 +24,6 @@ html {
   border: 1px solid #555;
   border-radius: 10px;
   background-color: black;
-  
 }
 
 header {
@@ -79,14 +78,13 @@ header h2 {
   outline: none;
   color: #d9d9d9;
   font-size: 15px;
-  font-family:'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 #post::placeholder {
   color: #6e767d;
   font-size: 20px;
 }
-
 
 #button {
   width: 80px;
@@ -98,7 +96,6 @@ header h2 {
   color: white;
   cursor: pointer;
   border: none;
-
 }
 
 #button:hover {
@@ -114,29 +111,41 @@ header h2 {
   height: 100px;
 }
 
-.root{
+.root {
   display: flex;
   justify-content: space-between;
 }
 
-.user-avatar{
+.user-avatar {
   width: 80px;
   height: 80px;
 }
 
-.user-name{
- padding-top: 10px;
+.user-name {
+  padding-top: 10px;
   font-size: 15px;
   color: greenyellow;
 }
 
-.post-text{
+.post-text {
   padding: 10px 0 0 10px;
   font-size: 20px;
 }
 
-.like-span{
+.like-span {
   display: flex;
   flex-direction: column-reverse;
+}
+
+.like-button {
+  background-color: initial;
+  border: none;
+  color: red;
+}
+
+
+.like-button:active{
+background-color: red;
+transform: scale(1.05);
 }
 
