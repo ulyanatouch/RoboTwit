@@ -31,8 +31,7 @@ const showPosts = (body, reactions, image, userName) => {
 
   likeSpan.append(likeButton);
   postContainer.append(userAvatar, nameOfUser, postText, likeSpan);
-  // wrapper.append(postContainer)
-  wrapper.insertBefore(postContainer, wrapper.firstChild);
+  wrapper.append(postContainer);
 };
 
 const fetchUser = async (userId) => {
@@ -97,7 +96,7 @@ const addPost = (postData, callback) => {
 postForm.addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  const user = await fetchUser(13);
+  const user = await fetchUser(3);
 
   const newPost = {
     body: textInput.value,
